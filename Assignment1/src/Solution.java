@@ -1,3 +1,5 @@
+package src;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -8,7 +10,8 @@ public class Solution {
     public static void main(String[] args) {
         // problemOne();
         // problemTwo();
-        problemThree();
+        // problemThree();
+        problemFour();
     }
 
     public static void problemOne() {
@@ -83,7 +86,14 @@ public class Solution {
             }
             String[] wds = new String[words.size()];
             wds = words.toArray(wds);
+            // Time the findWords method
+            long startTime = System.nanoTime();
             wp.findWords(wds);
+            long endTime = System.nanoTime();
+            // Convert to ms
+            long time = (endTime - startTime) / 1_000_000;
+            System.out.println("The time to find the words is " + time + " ms");
+
             reader.close();
         } catch (FileNotFoundException e) {
             System.out.println(e);
@@ -91,6 +101,27 @@ public class Solution {
     }
 
     public static void problemFour() {
+        MajorityElement me = new MajorityElement();
+        // Time the O(nlogn) method
+        long startTime = System.nanoTime();
+        System.out.println(me.getMajorityElement(me.majexOne));
+        System.out.println(me.getMajorityElement(me.majexTwo));
+        System.out.println(me.getMajorityElement(me.majexThree));
+        System.out.println(me.getMajorityElement(me.majexFour));
+        long endTime = System.nanoTime();
+        // Convert to ms
+        long time = (endTime - startTime) / 1_000_000;
+        System.out.println("The time to find the majority element for O(nlog(n)) is " + time + " ms");
 
+        // Time the O(n) method
+        startTime = System.nanoTime();
+        System.out.println(me.getMajorityElementLinear(me.majexOne));
+        System.out.println(me.getMajorityElementLinear(me.majexTwo));
+        System.out.println(me.getMajorityElementLinear(me.majexThree));
+        System.out.println(me.getMajorityElementLinear(me.majexFour));
+        endTime = System.nanoTime();
+        // Convert to ms
+        time = (endTime - startTime) / 1_000_000;
+        System.out.println("The time to find the majority element for O(n) is " + time + " ms");
     }
 }
