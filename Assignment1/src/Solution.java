@@ -104,24 +104,22 @@ public class Solution {
         MajorityElement me = new MajorityElement();
         // Time the O(nlogn) method
         long startTime = System.nanoTime();
-        System.out.println(me.getMajorityElement(me.majexOne));
-        System.out.println(me.getMajorityElement(me.majexTwo));
-        System.out.println(me.getMajorityElement(me.majexThree));
-        System.out.println(me.getMajorityElement(me.majexFour));
+        System.out.println("MajexOne: " + me.getMajorityElement(me.majexOne));
+        System.out.println("MajexTwo: " + me.getMajorityElement(me.majexTwo));
+        System.out.println("MajexThree: " + me.getMajorityElement(me.majexThree));
+        System.out.println("MajexFour: " + me.getMajorityElement(me.majexFour));
         long endTime = System.nanoTime();
-        // Convert to ms
-        long time = (endTime - startTime) / 1_000_000;
-        System.out.println("The time to find the majority element for O(nlog(n)) is " + time + " ms");
+        long time = (endTime - startTime);
+        System.out.println("The time to find the majority element for O(nlog(n)) is " + time + " ns");
 
         // Time the O(n) method
         startTime = System.nanoTime();
-        System.out.println(me.getMajorityElementLinear(me.majexOne));
-        System.out.println(me.getMajorityElementLinear(me.majexTwo));
-        System.out.println(me.getMajorityElementLinear(me.majexThree));
-        System.out.println(me.getMajorityElementLinear(me.majexFour));
+        System.out.println("MajexOne: " + me.getMajorityElementLinear(me.majexOne));
+        System.out.println("MajexTwo: " + me.getMajorityElementLinear(me.majexTwo));
+        System.out.println("MajexThree: " + me.getMajorityElementLinear(me.majexThree));
+        System.out.println("MajexFour: " + me.getMajorityElementLinear(me.majexFour));
         endTime = System.nanoTime();
-        // Convert to ms
-        time = (endTime - startTime) / 1_000_000;
-        System.out.println("The time to find the majority element for O(n) is " + time + " ms");
+        time = (endTime - startTime);
+        System.out.println("The time to find the majority element for O(n) is " + time + " ns");
     }
 }

@@ -1,6 +1,7 @@
 package src;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -17,23 +18,26 @@ public class MajorityElement {
             for (String f : files) {
                 File file = new File("./input/" + f);
                 Scanner reader = new Scanner(file);
-
-                StringBuilder sb = new StringBuilder();
+                ArrayList<String> list = new ArrayList<String>();
                 while (reader.hasNextLine()) {
-                    String line = reader.nextLine();
-                    sb.append(line);
+                    String[] data = reader.nextLine().trim().split(" ");
+                    for (String s : data) {
+                        list.add(s);
+                    }
                 }
-
-                String[] arr = sb.toString().split(" ");
-                System.out.println(Arrays.toString(arr));
-                if (f.equals("Majex1.txt")) {
-                    majexOne = arr;
-                } else if (f.equals("Majex2.txt")) {
-                    majexTwo = arr;
-                } else if (f.equals("Majex3.txt")) {
-                    majexThree = arr;
-                } else {
-                    majexFour = arr;
+                switch (f) {
+                    case "Majex1.txt":
+                        majexOne = list.toArray(new String[0]);
+                        break;
+                    case "Majex2.txt":
+                        majexTwo = list.toArray(new String[0]);
+                        break;
+                    case "Majex3.txt":
+                        majexThree = list.toArray(new String[0]);
+                        break;
+                    case "Majex4.txt":
+                        majexFour = list.toArray(new String[0]);
+                        break;
                 }
                 reader.close();
             }
@@ -42,6 +46,14 @@ public class MajorityElement {
         }
     }
 
+    /**
+     * Returns the majority element in the given array of strings, or
+     * "NO-MAJORITY-ELEMENT" if there is none.
+     * 
+     * @param arr the array of strings to search for the majority element
+     * @return the majority element in the array, or "NO-MAJORITY-ELEMENT" if there
+     *         is none
+     */
     public String getMajorityElement(String[] arr) {
         int n = arr.length;
 
@@ -52,25 +64,44 @@ public class MajorityElement {
 
         int k = n / 2;
 
+        // Recursively find the majority element in the left and right subarrays
         String elemLSub = getMajorityElement(Arrays.copyOfRange(arr, 0, k));
         String elemRSub = getMajorityElement(Arrays.copyOfRange(arr, k, n));
 
+        // If the majority element in the left subarray is the same as the majority
+        // element in the right subarray,
+        // then that element is the majority element in the entire array
         if (elemLSub.equals(elemRSub)) {
             return elemLSub;
         }
 
+        // Otherwise, count the frequency of the majority elements in each subarray
         int lCount = getFrequency(arr, elemLSub);
         int rCount = getFrequency(arr, elemRSub);
 
+        // If the frequency of the majority element in the left subarray is greater than
+        // k, then it is the majority element
         if (lCount > k) {
             return elemLSub;
-        } else if (rCount > k) {
+        }
+        // If the frequency of the majority element in the right subarray is greater
+        // than k, then it is the majority element
+        else if (rCount > k) {
             return elemRSub;
-        } else {
+        }
+        // Otherwise, there is no majority element in the entire array
+        else {
             return "NO-MAJORITY-ELEMENT";
         }
     }
 
+    /**
+     * Returns the frequency of the given element in the given array of strings.
+     * 
+     * @param arr  the array of strings to search for the element
+     * @param elem the element to search for in the array
+     * @return the frequency of the element in the array
+     */
     private int getFrequency(String[] arr, String target) {
         int count = 0;
         for (String obj : arr) {
@@ -81,6 +112,14 @@ public class MajorityElement {
         return count;
     }
 
+    /**
+     * Returns the majority element in the given array of strings, or
+     * "NO-MAJORITY-ELEMENT" if there is none. This method uses a linear algorithm
+     * to find the majority element.
+     * 
+     * @param arr the array of strings to search for the majority element
+     * @return the majority element in the array, or "NO-MAJORITY-ELEMENT" if there
+     */
     public String getMajorityElementLinear(String[] arr) {
         int n = arr.length;
         int majIndex = 0;
