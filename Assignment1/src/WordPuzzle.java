@@ -3,7 +3,6 @@ package src;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Scanner;
@@ -36,6 +35,12 @@ public class WordPuzzle {
         }
     }
 
+    /**
+     * Constructor for WordPuzzle class.
+     * Reads the puzzleinput file and stores it in the puzzle array.
+     * 
+     * @throws FileNotFoundException if the puzzleinput file is not found.
+     */
     public WordPuzzle() {
         // Read the puzzleinput file and store it
         // in the puzzle array
@@ -70,6 +75,40 @@ public class WordPuzzle {
     }
 
     /**
+     * This method benchmarks the time it takes to find words in a word puzzle.
+     * It reads a wordlist txt file, converts the words to uppercase, and times the
+     * findWords method.
+     * The time taken is then printed in milliseconds.
+     *
+     * @throws FileNotFoundException if the wordlist txt file is not found
+     */
+    public void benchmark() {
+        // Read the wordlist txt file
+        try {
+            File file = new File("./input/wordlist.txt");
+            Scanner reader = new Scanner(file);
+            ArrayList<String> words = new ArrayList<String>();
+            while (reader.hasNextLine()) {
+                String word = reader.nextLine();
+                words.add(word.toUpperCase());
+            }
+            String[] wds = new String[words.size()];
+            wds = words.toArray(wds);
+            // Time the findWords method
+            long startTime = System.nanoTime();
+            findWords(wds);
+            long endTime = System.nanoTime();
+            // Convert to ms
+            long time = (endTime - startTime) / 1_000_000;
+            System.out.println("The time to find the words is " + time + " ms");
+
+            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    /**
      * Find the word in the puzzle
      * If a word is found, it prints out where the word is found
      * 
@@ -77,7 +116,6 @@ public class WordPuzzle {
      */
     public void findWords(String[] words) {
         HashSet<Pair> pairs = new HashSet<Pair>();
-        System.out.println(Arrays.toString(words));
         for (String word : words) {
             findWord(word, pairs);
         }
@@ -96,6 +134,14 @@ public class WordPuzzle {
 
     }
 
+    /**
+     * Finds the given word in the puzzle and adds the coordinates of the first
+     * letter of the word to the given set of pairs.
+     * 
+     * @param word  the word to be found in the puzzle
+     * @param pairs the set of pairs to which the coordinates of the first letter of
+     *              the word will be added if found
+     */
     private void findWord(String word, HashSet<Pair> pairs) {
         char ch = word.charAt(0);
         for (int i = 0; i < puzzle.size(); i++) {
@@ -112,6 +158,17 @@ public class WordPuzzle {
         }
     }
 
+    /**
+     * Checks if a given word is present in the puzzle diagonally and returns true
+     * if found.
+     * If found, adds the pairs of the word's letters to the given hashset.
+     * 
+     * @param word  the word to search for diagonally
+     * @param pairs the hashset to add the pairs of the word's letters to if found
+     * @param row   the row index of the first letter of the word
+     * @param col   the column index of the first letter of the word
+     * @return true if the word is found diagonally, false otherwise
+     */
     private boolean diagonalCheck(String[] word, HashSet<Pair> pairs, int row, int col) {
         // check Top Left Diagonal
         boolean found = false;
@@ -196,6 +253,17 @@ public class WordPuzzle {
         return found;
     }
 
+    /**
+     * Checks if the given word can be found horizontally in the puzzle starting
+     * from the given row and column.
+     * 
+     * @param word  the word to search for
+     * @param pairs a HashSet of Pair objects representing the row and column
+     *              indices of each letter in the word found in the puzzle
+     * @param row   the row index to start searching from
+     * @param col   the column index to start searching from
+     * @return true if the word is found horizontally in the puzzle, false otherwise
+     */
     private boolean horizontalCheck(String[] word, HashSet<Pair> pairs, int row, int col) {
         // check Left
         boolean found = false;
@@ -240,6 +308,17 @@ public class WordPuzzle {
         return found;
     }
 
+    /**
+     * Checks if a given word can be found vertically in the puzzle, starting from
+     * the given row and column.
+     * 
+     * @param word  the word to search for
+     * @param pairs a HashSet of Pair objects representing the coordinates of the
+     *              letters in the word found in the puzzle
+     * @param row   the row to start searching from
+     * @param col   the column to search in
+     * @return true if the word is found, false otherwise
+     */
     private boolean verticalCheck(String[] word, HashSet<Pair> pairs, int row, int col) {
         // check top
         boolean found = false;

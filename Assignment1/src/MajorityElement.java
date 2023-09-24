@@ -47,6 +47,36 @@ public class MajorityElement {
     }
 
     /**
+     * This method benchmarks the performance of two methods to find the majority
+     * element in an array.
+     * The first method has a time complexity of O(nlog(n)), while the second method
+     * has a time complexity of O(n).
+     * The method prints the majority element found for each array and the time
+     * taken to find the majority element for each method.
+     */
+    public void benchmark() {
+        // Time the O(nlogn) method
+        long startTime = System.nanoTime();
+        System.out.println("MajexOne: " + getMajorityElement(majexOne));
+        System.out.println("MajexTwo: " + getMajorityElement(majexTwo));
+        System.out.println("MajexThree: " + getMajorityElement(majexThree));
+        System.out.println("MajexFour: " + getMajorityElement(majexFour));
+        long endTime = System.nanoTime();
+        long time = (endTime - startTime);
+        System.out.println("The time to find the majority element for O(nlog(n)) is " + time + " ns");
+
+        // Time the O(n) method
+        startTime = System.nanoTime();
+        System.out.println("MajexOne: " + getMajorityElementLinear(majexOne));
+        System.out.println("MajexTwo: " + getMajorityElementLinear(majexTwo));
+        System.out.println("MajexThree: " + getMajorityElementLinear(majexThree));
+        System.out.println("MajexFour: " + getMajorityElementLinear(majexFour));
+        endTime = System.nanoTime();
+        time = (endTime - startTime);
+        System.out.println("The time to find the majority element for O(n) is " + time + " ns");
+    }
+
+    /**
      * Returns the majority element in the given array of strings, or
      * "NO-MAJORITY-ELEMENT" if there is none.
      * 
