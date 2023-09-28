@@ -24,6 +24,9 @@ if not os.path.exists(src_dir):
 
 # Create the Solution.java file within the src directory with a main function
 solution_code = """
+/**
+    **Add Assignment Info Here**
+*/
 public class Solution {
     public static void main(String[] args) {
         // Your code here
