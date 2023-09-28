@@ -56,6 +56,7 @@ public class MajorityElement {
      */
     public void benchmark() {
         // Time the O(nlogn) method
+        System.out.println("==================== O(nlog(n)) ====================");
         long startTime = System.nanoTime();
         System.out.println("MajexOne: " + getMajorityElement(majexOne));
         System.out.println("MajexTwo: " + getMajorityElement(majexTwo));
@@ -66,6 +67,7 @@ public class MajorityElement {
         System.out.println("The time to find the majority element for O(nlog(n)) is " + time + " ns");
 
         // Time the O(n) method
+        System.out.println("==================== O(n) ====================");
         startTime = System.nanoTime();
         System.out.println("MajexOne: " + getMajorityElementLinear(majexOne));
         System.out.println("MajexTwo: " + getMajorityElementLinear(majexTwo));
