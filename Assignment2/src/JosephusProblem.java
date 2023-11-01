@@ -105,7 +105,7 @@ public class JosephusProblem {
             // Eliminate soliders
             System.out.println("Eliminating order: ");
             int count = 1;
-            while (!queue.isEmpty()) {
+            while (queue.size > 1) {
                 // Move soliders to the back of the queue
                 for (int i = 0; i < k - 1; i++) {
                     queue.enqueue(queue.dequeue());
@@ -115,6 +115,10 @@ public class JosephusProblem {
                 System.out.println(count + ". " + soliders[eliminatedSolider]);
                 count++;
             }
+
+            // Print the last solider standing
+            System.out.println(
+                    "Last solider standing: " + soliders[queue.peek()] + " who is at position " + (queue.peek() + 1));
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
