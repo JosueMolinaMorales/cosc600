@@ -34,6 +34,14 @@
         The program will generate 5,000 random numbers between 0 and 50,000. It will then run the following sorting algorithm on the numbers:
             - Radix Sort
         Each method will be timed and the results will be printed.
+
+    To Run the program:
+        `make run`
+
+    If you have issues running the program with make, you can run it manually:
+        `cd src`
+        `javac Solution.java`
+        `java Solution`
  */
 import java.util.Scanner;
 
@@ -72,7 +80,6 @@ public class Solution {
     }
 
     private static void printMenu() {
-        // Print menu in a box
         System.out.println("=============================");
         System.out.println("1. Run BinaryHeap");
         System.out.println("2. Run Sorting");
