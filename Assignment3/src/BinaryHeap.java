@@ -23,27 +23,31 @@ public class BinaryHeap {
         System.out.println("]");
         System.out.println();
 
-        // Create first binary heap and insert numbers one by one
-        long start = System.nanoTime();
-        BinaryHeap bh = new BinaryHeap();
-        int swaps = 0;
+        // Create and insert into the first binary heap
+        long insertStart = System.nanoTime();
+        BinaryHeap bh1 = new BinaryHeap();
+        int insertSwaps = 0;
         for (int i = 0; i < insertOrder.length; i++) {
-            swaps += bh.insert(insertOrder[i]);
+            insertSwaps += bh1.insert(insertOrder[i]);
         }
-        long end = System.nanoTime();
-        System.out.println(end - start + " nanoseconds to insert 5,000 numbers into a binary heap");
-        System.out.println(swaps + " swaps to insert 5,000 numbers into a binary heap");
-        System.out.println("First 50 elements of the heap:");
-        bh.printHeap();
-        System.out.println();
-        // Create second binary heap and build heap
-        start = System.nanoTime();
-        BinaryHeap bh2 = new BinaryHeap();
-        swaps = bh2.buildHeap(insertOrder);
-        end = System.nanoTime();
+        long insertEnd = System.nanoTime();
 
-        System.out.println(end - start + " nanoseconds to build a binary heap from 5,000 numbers");
-        System.out.println(swaps + " swaps to build a binary heap from 5,000 numbers");
+        System.out.println("Inserting 5,000 numbers into a binary heap:");
+        System.out.println("Time: \t\t\t\t" + (insertEnd - insertStart) + " nanoseconds");
+        System.out.println("Swaps: \t\t\t\t" + insertSwaps + " swaps");
+        System.out.println("First 50 elements of the heap:");
+        bh1.printHeap();
+        System.out.println();
+
+        // Create and build the second binary heap
+        long buildStart = System.nanoTime();
+        BinaryHeap bh2 = new BinaryHeap();
+        int buildSwaps = bh2.buildHeap(insertOrder);
+        long buildEnd = System.nanoTime();
+
+        System.out.println("Building a binary heap from 5,000 numbers:");
+        System.out.println("Time: \t\t\t\t" + (buildEnd - buildStart) + " nanoseconds");
+        System.out.println("Swaps: \t\t\t\t" + buildSwaps + " swaps");
         System.out.println("First 50 elements of the heap:");
         bh2.printHeap();
     }

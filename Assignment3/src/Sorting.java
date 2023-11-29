@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Sorting {
-    private static final int SIZE = 10;
+    private static final int SIZE = 5_000;
     private static final int CAPACITY = 50_000;
 
     public static void run() {
@@ -13,26 +13,55 @@ public class Sorting {
         }
         // Print out the first 100 numbers
         System.out.print("Original Array: [");
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.print(arr[i] + ", ");
         }
         System.out.print("...");
         System.out.println("]");
+        System.out.println();
 
         // Run sorting algorithms
-        int[] copy = Arrays.copyOf(arr, arr.length);
-        long start = System.nanoTime();
-        bubbleSort(copy);
-        long end = System.nanoTime();
-        System.out.println("Bubble Sort: " + (end - start) + "ns");
+        // Bubble Sort
+        int[] bubbleCopy = Arrays.copyOf(arr, arr.length);
+        long bubbleStart = System.nanoTime();
+        bubbleSort(bubbleCopy);
+        long bubbleEnd = System.nanoTime();
+        System.out.println("Array after bubble sort: ");
+        printArray(bubbleCopy);
+        System.out.println();
 
-        copy = Arrays.copyOf(arr, arr.length);
-        start = System.nanoTime();
-        insertionSort(copy);
-        end = System.nanoTime();
-        // selectionSort(arr);
-        // mergeSort(arr);
-        printArray(arr);
+        // Insertion Sort
+        int[] insertionCopy = Arrays.copyOf(arr, arr.length);
+        long insertionStart = System.nanoTime();
+        insertionSort(insertionCopy);
+        long insertionEnd = System.nanoTime();
+        System.out.println("Array after insertion sort: ");
+        printArray(insertionCopy);
+        System.out.println();
+
+        // Selection Sort
+        int[] selectionCopy = Arrays.copyOf(arr, arr.length);
+        long selectionStart = System.nanoTime();
+        selectionSort(selectionCopy);
+        long selectionEnd = System.nanoTime();
+        System.out.println("Array after selection sort: ");
+        printArray(selectionCopy);
+        System.out.println();
+
+        // Merge Sort
+        int[] mergeCopy = Arrays.copyOf(arr, arr.length);
+        long mergeStart = System.nanoTime();
+        mergeSort(mergeCopy);
+        long mergeEnd = System.nanoTime();
+        System.out.println("Array after merge sort: ");
+        printArray(mergeCopy);
+        System.out.println();
+
+        System.out.println("Bubble Sort: \t\t\t" + (bubbleEnd - bubbleStart) + "ns");
+        System.out.println("Insertion Sort: \t\t" + (insertionEnd - insertionStart) + "ns");
+        System.out.println("Selection Sort: \t\t" + (selectionEnd - selectionStart) + "ns");
+        System.out.println("Merge Sort: \t\t\t" + (mergeEnd - mergeStart) + "ns");
+
     }
 
     private static void printArray(int[] arr) {
@@ -55,11 +84,12 @@ public class Sorting {
     }
 
     private static void bubbleSort(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i; j < arr.length - i; j++) {
-                if (arr[i] > arr[j]) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
                     // Swap
-                    swap(arr, i, j);
+                    swap(arr, j, j + 1);
                 }
             }
         }
@@ -100,7 +130,6 @@ public class Sorting {
 
     private static void mergeSort(int[] arr, int left, int right) {
         // Base Case
-        System.out.println("right - left = " + (right - left));
         if (right - left < 1) {
             return;
         }
